@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
-import CoolPackage 1.0
+
 
 
 Rectangle {
@@ -9,9 +9,7 @@ Rectangle {
     anchors.centerIn:    parent
     color:              "#024873"
 
-    Calculator{
-        id: calculator
-    }
+
 
     Rectangle{
         id:                leftArea
@@ -39,6 +37,7 @@ Rectangle {
                     anchors.centerIn:    parent
                     text:                "()"
                 }
+
             }
 
             RoundButton {
@@ -88,8 +87,10 @@ Rectangle {
                         color:               "#024873"
                         font.pointSize:      buttonsArea.height * 0.05
                         anchors.centerIn:    parent
-                        text:                index
+                        text:                index + 1
                     }
+
+                    onPressed: calculator.numberPressed(index + 1)
                 }
             }
         }
@@ -110,6 +111,8 @@ Rectangle {
                     anchors.centerIn: parent
                     text: "C"
                 }
+
+                onPressed: calculator.clearPressed()
             }
 
             RoundButton {
@@ -122,6 +125,8 @@ Rectangle {
                     anchors.centerIn: parent
                     text: "0"
                 }
+
+                onPressed: calculator.numberPressed(0)
             }
 
             RoundButton {
@@ -134,6 +139,7 @@ Rectangle {
                     anchors.centerIn: parent
                     text: "."
                 }
+                onPressed: calculator.dotPressed()
             }
 
         }
@@ -156,6 +162,7 @@ Rectangle {
                 anchors.centerIn: parent
                 text: "/"
             }
+            onPressed: calculator.operationPressed('/')
         }
 
         RoundButton {
@@ -168,6 +175,7 @@ Rectangle {
                 anchors.centerIn: parent
                 text: "*"
             }
+            onPressed: calculator.operationPressed('*')
         }
 
         RoundButton {
@@ -180,6 +188,7 @@ Rectangle {
                 anchors.centerIn: parent
                 text: "-"
             }
+            onPressed: calculator.operationPressed('-')
         }
 
         RoundButton {
@@ -192,6 +201,7 @@ Rectangle {
                 anchors.centerIn: parent
                 text: "+"
             }
+            onPressed: calculator.operationPressed('+')
         }
 
         RoundButton {
@@ -204,6 +214,7 @@ Rectangle {
                 anchors.centerIn: parent
                 text: "="
             }
+            onPressed: calculator.equalsPressed()
         }
     }
 

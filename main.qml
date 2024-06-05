@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
+import CoolPackage 1.0
 
 
 Window {
@@ -10,6 +11,10 @@ Window {
     title:      qsTr("Calculator")
     color:      "#024873"
 
+
+    Calculator{
+        id: calculator
+    }
 
     Rectangle {
         id:        outputArea
@@ -28,7 +33,7 @@ Window {
 
             Text {
                 id:               result
-                text:             "output"
+                text:             calculator.calcValue
                 color:            "white"
                 font.pointSize:   parent.height / 4
                 anchors.right:    parent.right

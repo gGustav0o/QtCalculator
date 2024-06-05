@@ -21,6 +21,7 @@ public slots:
     void operationPressed(const QChar);
     void equalsPressed();
     void clearPressed();
+    void dotPressed();
 
     void setCalcValue(const QString&);
     QString& getCalcValue();
@@ -31,7 +32,12 @@ private:
     QString m_calcValue = "";
     void clearNumbers();
     void clearOperations();
-
+    
+    void clearDemicalPosi
+    bool dot = false;
+    int demicalPosition = 0.1;
+    double numberBuffer = 0.0;
+    void readNumberBuffer();
     void pushNumbers(const double);
     double popNumbers();
     void pushOperations(const char);
@@ -40,6 +46,7 @@ private:
 signals:
     void calcValueChanged();
 };
+
 
 
 #endif // CALCULATOR_H
