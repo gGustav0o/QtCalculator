@@ -2,110 +2,203 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
-GridLayout {
+Rectangle {
     id:                  buttonsArea
     anchors.centerIn:    parent
-    rows: 5
-    columns: 4
+    color:              "#024873"
 
-    TextButton {
-        id: bracketsButton
-        text: "()"
+    Rectangle{
+        id:                leftArea
+        anchors.top:       parent.top
+        anchors.bottom:    parent.bottom
+        anchors.left:      parent.left
+        width:             parent.width * 0.75
+        color:             "#024873"
+
+        RowLayout {
+            id:               complexOperations
+            anchors.top:      parent.top
+            anchors.left:     parent.left
+            anchors.right:    parent.right
+            height:           parent.height * 0.2
+
+            RoundButton {
+                Layout.leftMargin:         buttonsArea.height * 0.029
+                Layout.preferredHeight:    buttonsArea.height * 0.14
+                Layout.preferredWidth:     buttonsArea.height * 0.14
+
+                Text {
+                    color:               "#024873"
+                    font.pointSize:      buttonsArea.height * 0.05
+                    anchors.centerIn:    parent
+                    text:                "()"
+                }
+            }
+
+            RoundButton {
+                Layout.preferredHeight:    buttonsArea.height * 0.14
+                Layout.leftMargin:         buttonsArea.height * 0.029
+                Layout.preferredWidth:     buttonsArea.height * 0.14
+                Text {
+                    color:               "#024873"
+                    font.pointSize:      buttonsArea.height * 0.05
+                    anchors.centerIn:    parent
+                    text:                "+/-"
+                }
+            }
+
+            RoundButton {
+                Layout.preferredHeight:    buttonsArea.height * 0.14
+                Layout.leftMargin:         buttonsArea.height * 0.029
+                Layout.preferredWidth:     buttonsArea.height * 0.14
+
+                Text {
+                    color:               "#024873"
+                    font.pointSize:      buttonsArea.height * 0.05
+                    anchors.centerIn:    parent
+                    text:                "%"
+                }
+            }
+        }
+
+        GridLayout{
+            id:               numbers
+            rows:             3
+            columns:          3
+            anchors.top:      complexOperations.bottom
+            anchors.left:     parent.left
+            anchors.right:    parent.right
+            height:           parent.height * 0.6
+
+            Repeater {
+                model: 9
+
+                RoundButton {
+                    Layout.leftMargin:         buttonsArea.height * 0.029
+                    Layout.preferredHeight:    buttonsArea.height * 0.14
+                    Layout.preferredWidth:     buttonsArea.height * 0.14
+
+                    Text {
+                        color:               "#024873"
+                        font.pointSize:      buttonsArea.height * 0.05
+                        anchors.centerIn:    parent
+                        text:                index
+                    }
+                }
+            }
+        }
+
+        RowLayout{
+            anchors.top:       numbers.bottom
+            anchors.bottom:    parent.bottom
+            anchors.left:      parent.left
+            anchors.right:     parent.right
+
+            RoundButton {
+                Layout.leftMargin:         buttonsArea.height * 0.029
+                Layout.preferredHeight:    buttonsArea.height * 0.14
+                Layout.preferredWidth:     buttonsArea.height * 0.14
+                Text {
+                    color: "#024873"
+                    font.pointSize: buttonsArea.height * 0.05
+                    anchors.centerIn: parent
+                    text: "C"
+                }
+            }
+
+            RoundButton {
+                Layout.preferredHeight: buttonsArea.height * 0.14
+                Layout.leftMargin: buttonsArea.height * 0.029
+                Layout.preferredWidth: buttonsArea.height * 0.14
+                Text {
+                    color: "#024873"
+                    font.pointSize: buttonsArea.height * 0.05
+                    anchors.centerIn: parent
+                    text: "0"
+                }
+            }
+
+            RoundButton {
+                Layout.preferredHeight: buttonsArea.height * 0.14
+                Layout.leftMargin: buttonsArea.height * 0.029
+                Layout.preferredWidth: buttonsArea.height * 0.14
+                Text {
+                    color: "#024873"
+                    font.pointSize: buttonsArea.height * 0.05
+                    anchors.centerIn: parent
+                    text: "."
+                }
+            }
+
+        }
     }
 
-    TextButton {
-        id: plusMinusButton
-        text: "+/-"
-    }
+    ColumnLayout{
 
-    TextButton {
-        id: percentButton
-        text: "%"
-    }
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: leftArea.right
 
-    TextButton {
-        id: divideButton
-        text: "/"
-    }
+        RoundButton {
+            Layout.leftMargin: buttonsArea.height * 0.029
+            Layout.preferredHeight: buttonsArea.height * 0.14
+            Layout.preferredWidth: buttonsArea.height * 0.14
+            Text {
+                color: "#024873"
+                font.pointSize: buttonsArea.height * 0.05
+                anchors.centerIn: parent
+                text: "/"
+            }
+        }
 
-    TextButton {
-        id: button7
-        text: "7"
-    }
+        RoundButton {
+            Layout.leftMargin: buttonsArea.height * 0.029
+            Layout.preferredHeight: buttonsArea.height * 0.14
+            Layout.preferredWidth: buttonsArea.height * 0.14
+            Text {
+                color: "#024873"
+                font.pointSize: buttonsArea.height * 0.05
+                anchors.centerIn: parent
+                text: "*"
+            }
+        }
 
-    TextButton {
-        id: button8
-        text: "8"
-    }
+        RoundButton {
+            Layout.leftMargin: buttonsArea.height * 0.029
+            Layout.preferredHeight: buttonsArea.height * 0.14
+            Layout.preferredWidth: buttonsArea.height * 0.14
+            Text {
+                color: "#024873"
+                font.pointSize: buttonsArea.height * 0.05
+                anchors.centerIn: parent
+                text: "-"
+            }
+        }
 
-    TextButton {
-        id: button9
-        text: "9"
-    }
+        RoundButton {
+            Layout.leftMargin: buttonsArea.height * 0.029
+            Layout.preferredHeight: buttonsArea.height * 0.14
+            Layout.preferredWidth: buttonsArea.height * 0.14
+            Text {
+                color: "#024873"
+                font.pointSize: buttonsArea.height * 0.05
+                anchors.centerIn: parent
+                text: "+"
+            }
+        }
 
-    TextButton {
-        id: multiplyButton
-        text: "*"
-    }
-
-    TextButton {
-        id: button4
-        text: "4"
-    }
-
-    TextButton {
-        id: button5
-        text: "5"
-    }
-
-    TextButton {
-        id: button6
-        text: "6"
-    }
-
-    TextButton {
-        id: minusButton
-        text: "-"
-    }
-
-    TextButton {
-        id: button1
-        text: "1"
-    }
-
-    TextButton {
-        id: button2
-        text: "2"
-    }
-
-    TextButton {
-        id: button3
-        text: "3"
-    }
-
-    TextButton {
-        id: plusButton
-        text: "+"
-    }
-
-    TextButton {
-        id: cButton
-        text: "C"
-    }
-
-    TextButton {
-        id: zeroButton
-        text: "0"
-    }
-
-    TextButton {
-        id: pointButton
-        text: "."
-    }
-
-    TextButton {
-        id: equalsButton
-        text: "="
+        RoundButton {
+            Layout.leftMargin: buttonsArea.height * 0.029
+            Layout.preferredHeight: buttonsArea.height * 0.14
+            Layout.preferredWidth: buttonsArea.height * 0.14
+            Text {
+                color: "#024873"
+                font.pointSize: buttonsArea.height * 0.05
+                anchors.centerIn: parent
+                text: "="
+            }
+        }
     }
 
 }
