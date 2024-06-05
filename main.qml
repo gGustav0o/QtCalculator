@@ -11,8 +11,6 @@ Window {
     color:      "#024873"
 
 
-
-
     Rectangle {
         id:        outputArea
         width:     parent.width
