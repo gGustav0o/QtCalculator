@@ -248,6 +248,7 @@ Makefile: ../../QtCalculator1.pro D:/Soft/pacman/mingw64/share/qt5/mkspecs/win32
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/qt_config.prf \
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/win32-g++/qmake.conf \
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/exclusive_builds.prf \
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/toolchain.prf \
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/default_pre.prf \
@@ -272,7 +273,6 @@ Makefile: ../../QtCalculator1.pro D:/Soft/pacman/mingw64/share/qt5/mkspecs/win32
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/lex.prf \
 		../../QtCalculator1.pro \
 		D:/Soft/pacman/mingw64/lib/qtmain.prl \
-		.qmake.stash \
 		D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/build_pass.prf \
 		../../qml.qrc
 	$(QMAKE) -o Makefile ../../QtCalculator1.pro -spec win32-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -454,6 +454,7 @@ D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/qt_functions.prf:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/qt_config.prf:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/win32-g++/qmake.conf:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/exclusive_builds.prf:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/toolchain.prf:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/default_pre.prf:
@@ -478,7 +479,6 @@ D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/yacc.prf:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/lex.prf:
 ../../QtCalculator1.pro:
 D:/Soft/pacman/mingw64/lib/qtmain.prl:
-.qmake.stash:
 D:/Soft/pacman/mingw64/share/qt5/mkspecs/features/build_pass.prf:
 ../../qml.qrc:
 qmake: FORCE
