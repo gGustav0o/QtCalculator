@@ -24,7 +24,41 @@ void Calculator::clearNumbers()
 
 void Calculator::clearOperations()
 {
-    operations = stack<char>();
+    operations = stack<QChar>();
+}
+
+double Calculator::calculate()
+{
+
+    double a_number, b_number, result;
+    a_number = popNumbers();
+    char o = popOperations().toLatin1();
+    switch(o){
+    case '+':
+        b_number = popNumbers();
+        result = a_number + b_number;
+        pushNumbers(result);
+        break;
+    case '-':
+        b_number = popNumbers();
+        result = b_number - a_number;
+        pushNumbers(result);
+        break;
+    case '*':
+        b_number = popNumbers();
+        result = a_number * b_number;
+        pushNumbers(result);
+        break;
+    case '/':
+        b_number = popNumbers();
+        if(b_number == 0.0){
+            // TODO : ERROR
+        }
+        result = b_number / a_number;
+        pushNumbers(result);
+        break;
+    }
+    return numbers.top();
 }
 
 int Calculator::getOperationsSize()
@@ -48,6 +82,7 @@ void Calculator::readNumberBuffer()
     pushNumbers(numberBuffer);
     numberBuffer = 0.0;
     clearDemicalPosition();
+    qDebug() << "THE NUMBER IS " << numbers.top();
 }
 
 void Calculator::pushNumbers(const double number)
@@ -57,19 +92,23 @@ void Calculator::pushNumbers(const double number)
 
 double Calculator::popNumbers()
 {
-    double temp = numbers.top();
+    qDebug() << "POPPING";
+    double temp = -1;
+    qDebug() << "POP: TOP IS " << numbers.top();
+    temp = numbers.top();
     numbers.pop();
+
     return temp;
 }
 
-void Calculator::pushOperations(const char operation)
+void Calculator::pushOperations(const QChar operation)
 {
     operations.push(operation);
 }
 
-char Calculator::popOperations()
+QChar Calculator::popOperations()
 {
-    char temp = operations.top();
+    QChar temp = operations.top();
     operations.pop();
     return temp;
 }
@@ -79,15 +118,24 @@ QString& Calculator::calcValue(){
     return m_calcValue;
 }
 
+double Calculator::result()
+{
+    return this->m_result;
+}
+
 void Calculator::numberPressed(const int number){
 
+    qDebug()<< "dot " << dot  << "; NUMBER BUFFER "<< numberBuffer <<"; N * DP " <<number * demicalPosition;
     if(dot){
-        numberBuffer += number * demicalPosition;
+        double tmp = (double)number * demicalPosition;
+        numberBuffer += tmp;
         demicalPosition *= 0.1;
     } else {
         numberBuffer *= 10;
         numberBuffer += number;
     }
+
+
 
     m_calcValue += QString::number(number);
     qDebug() << number;
@@ -102,6 +150,7 @@ void Calculator::changeSignPressed()
 
 void Calculator::operationPressed(const QChar operation)
 {
+    readNumberBuffer();
     pushOperations(operation);
     m_calcValue += operation;
     qDebug() << operation;
@@ -110,18 +159,31 @@ void Calculator::operationPressed(const QChar operation)
 
 void Calculator::equalsPressed()
 {
-
+    readNumberBuffer();
+    setResult(calculate());
+    emit resultChanged();
 }
 
 void Calculator::clearPressed()
 {
     clearOperations();
     clearNumbers();
+    m_calcValue = "";
+    m_result = 0.0;
+    emit calcValueChanged();
+    emit resultChanged();
 }
 
 void Calculator::dotPressed()
 {
-    dot = true;
+    if(!dot){
+        dot = true;
+        m_calcValue += '.';
+        emit calcValueChanged();
+    }
 }
 
-
+void Calculator::setResult(const double result)
+{
+    this->m_result = result;
+}

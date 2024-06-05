@@ -33,7 +33,7 @@ Window {
 
             Text {
                 id:               result
-                text:             calculator.calcValue
+                text:             calculator.result
                 color:            "white"
                 font.pointSize:   parent.height / 4
                 anchors.right:    parent.right
@@ -42,7 +42,7 @@ Window {
 
             Text {
                 id: terms
-                text:              "terms"
+                text:              calculator.calcValue
                 color:             "white"
                 font.pointSize:    result.height / 4
                 anchors.bottom:    result.top
