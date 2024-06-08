@@ -37,6 +37,7 @@ Rectangle {
                     anchors.centerIn:    parent
                     text:                "()"
                 }
+                onPressed: calculator.bracketPressed()
 
             }
 
@@ -50,6 +51,7 @@ Rectangle {
                     anchors.centerIn:    parent
                     text:                "+/-"
                 }
+                onPressed: calculator.changeSignPressed()
             }
 
             RoundButton {
@@ -63,6 +65,7 @@ Rectangle {
                     anchors.centerIn:    parent
                     text:                "%"
                 }
+                onPressed: calculator.percentPressed()
             }
         }
 

@@ -34,10 +34,13 @@ Window {
             Text {
                 id:               result
                 text:             calculator.result
+                // TODO: font size
                 color:            "white"
                 font.pointSize:   parent.height / 4
                 anchors.right:    parent.right
                 anchors.bottom:   parent.bottom
+                elide: Text.ElideLeft
+
             }
 
             Text {
