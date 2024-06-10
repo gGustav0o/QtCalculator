@@ -34,12 +34,10 @@ Window {
             Text {
                 id:               result
                 text:             calculator.result
-                // TODO: font size
                 color:            "white"
-                font.pointSize:   parent.height / 4
+                font.pointSize:   parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
                 anchors.right:    parent.right
                 anchors.bottom:   parent.bottom
-                elide: Text.ElideLeft
 
             }
 
@@ -47,7 +45,7 @@ Window {
                 id: terms
                 text:              calculator.calcValue
                 color:             "white"
-                font.pointSize:    result.height / 4
+                font.pointSize:    parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
                 anchors.bottom:    result.top
                 anchors.right:     parent.right
             }

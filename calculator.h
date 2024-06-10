@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <stack>
+#include "longdouble.h"
 
 using namespace std;
 
@@ -11,12 +12,11 @@ class Calculator : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString calcValue READ calcValue WRITE setCalcValue NOTIFY calcValueChanged FINAL)
-    Q_PROPERTY(double result READ result WRITE setResult NOTIFY resultChanged FINAL)
-    Q_PROPERTY(int resultLength READ resultLength NOTIFY resultLengthChanged FINAL)
+    Q_PROPERTY(QString result READ result WRITE setResult NOTIFY resultChanged FINAL)
 public:
     explicit Calculator(QObject *parent = nullptr);
     QString& calcValue();
-    double result();
+    QString result();
     int resultLength();
 public slots:
 
@@ -29,15 +29,14 @@ public slots:
     void bracketPressed();
     void percentPressed();
 
-    void setResult(const double);
+    void setResult(const QString&);
     void setCalcValue(const QString&);
     QString& getCalcValue();
 
 private:
-    stack<double> numbers;
+    stack<LongDouble> numbers;
     stack<QChar> operations;
-    int m_resultLength = 0;
-    double m_result = 0.0;
+    QString m_result;
     QString m_calcValue = "";
     void clearNumbers();
     void clearOperations();
@@ -50,16 +49,16 @@ private:
     int bufferLength = 0;
 
     int getOperationPriority(QChar);
-    double calculate();
+    LongDouble calculate();
     int getOperationsSize();
     int getNumbersSize();
     void clearDemicalPosition();
     bool dot = false;
     double demicalPosition = 0.1;
-    double numberBuffer = 0.0;
+    LongDouble numberBuffer;
     void readNumberBuffer();
-    void pushNumbers(const double);
-    double popNumbers();
+    void pushNumbers(const LongDouble);
+    LongDouble popNumbers();
     void pushOperations(const QChar);
     QChar popOperations();
 

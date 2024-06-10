@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Calculator_t {
-    QByteArrayData data[20];
-    char stringdata0[253];
+    QByteArrayData data[19];
+    char stringdata0[240];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -50,8 +50,7 @@ QT_MOC_LITERAL(14, 187, 9), // "setResult"
 QT_MOC_LITERAL(15, 197, 12), // "setCalcValue"
 QT_MOC_LITERAL(16, 210, 12), // "getCalcValue"
 QT_MOC_LITERAL(17, 223, 9), // "calcValue"
-QT_MOC_LITERAL(18, 233, 6), // "result"
-QT_MOC_LITERAL(19, 240, 12) // "resultLength"
+QT_MOC_LITERAL(18, 233, 6) // "result"
 
     },
     "Calculator\0calcValueChanged\0\0resultChanged\0"
@@ -60,7 +59,7 @@ QT_MOC_LITERAL(19, 240, 12) // "resultLength"
     "equalsPressed\0clearPressed\0dotPressed\0"
     "bracketPressed\0percentPressed\0setResult\0"
     "setCalcValue\0getCalcValue\0calcValue\0"
-    "result\0resultLength"
+    "result"
 };
 #undef QT_MOC_LITERAL
 
@@ -71,7 +70,7 @@ static const uint qt_meta_data_Calculator[] = {
        0,       // classname
        0,    0, // classinfo
       14,   14, // methods
-       3,  106, // properties
+       2,  106, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
@@ -109,19 +108,17 @@ static const uint qt_meta_data_Calculator[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Double,    2,
+    QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
 
  // properties: name, type, flags
       17, QMetaType::QString, 0x00495903,
-      18, QMetaType::Double, 0x00495903,
-      19, QMetaType::Int, 0x00495801,
+      18, QMetaType::QString, 0x00495903,
 
  // properties: notify_signal_id
        0,
        1,
-       2,
 
        0        // eod
 };
@@ -143,7 +140,7 @@ void Calculator::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->dotPressed(); break;
         case 9: _t->bracketPressed(); break;
         case 10: _t->percentPressed(); break;
-        case 11: _t->setResult((*reinterpret_cast< const double(*)>(_a[1]))); break;
+        case 11: _t->setResult((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 12: _t->setCalcValue((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 13: _t->getCalcValue(); break;
         default: ;
@@ -179,8 +176,7 @@ void Calculator::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< QString*>(_v) = _t->calcValue(); break;
-        case 1: *reinterpret_cast< double*>(_v) = _t->result(); break;
-        case 2: *reinterpret_cast< int*>(_v) = _t->resultLength(); break;
+        case 1: *reinterpret_cast< QString*>(_v) = _t->result(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -189,7 +185,7 @@ void Calculator::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         void *_v = _a[0];
         switch (_id) {
         case 0: _t->setCalcValue(*reinterpret_cast< QString*>(_v)); break;
-        case 1: _t->setResult(*reinterpret_cast< double*>(_v)); break;
+        case 1: _t->setResult(*reinterpret_cast< QString*>(_v)); break;
         default: break;
         }
     } else if (_c == QMetaObject::ResetProperty) {
@@ -238,17 +234,17 @@ int Calculator::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 3;
+        _id -= 2;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

@@ -2,6 +2,8 @@
 
 Calculator::Calculator(QObject *parent)
     : QObject{parent}
+    , m_result("0")
+    , numberBuffer("0")
     , m_calcValue("")
 {
 
@@ -19,7 +21,7 @@ QString& Calculator::getCalcValue()
 
 void Calculator::clearNumbers()
 {
-    numbers = stack<double>();
+    numbers = stack<LongDouble>();
 }
 
 void Calculator::clearOperations()
@@ -44,19 +46,13 @@ int Calculator::getOperationPriority(QChar operation)
     return -1;
 }
 
-double Calculator::calculate()
+LongDouble Calculator::calculate()
 {
-    double a_number, b_number, result;
+    LongDouble a_number, b_number, result;
     a_number = popNumbers();
     b_number = popNumbers();
     char o = popOperations().toLatin1();
 
-    qDebug() << QString::fromStdString("CALCULATING: ")
-                    + QString::fromStdString(std::to_string(a_number))
-                    + " "
-                    + o
-                    + " "
-                    + QString::fromStdString(std::to_string(b_number));
     switch(o){
     case '+':
         result = a_number + b_number;
@@ -68,8 +64,8 @@ double Calculator::calculate()
         result = a_number * b_number;
         break;
     case '/':
-        if(b_number == 0.0){
-            // TODO : ERROR
+        if(b_number == LongDouble("0")){
+            throw string("division by zero");
         }
         break;
     }
@@ -100,20 +96,20 @@ void Calculator::clearDemicalPosition()
 void Calculator::readNumberBuffer()
 {
     pushNumbers(numberBuffer);
-    numberBuffer = 0.0;
+    numberBuffer.reset();
     clearDemicalPosition();
     bufferReaded = true;
     bufferLength = 0;
 }
 
-void Calculator::pushNumbers(const double number)
+void Calculator::pushNumbers(const LongDouble number)
 {
     numbers.push(number);
 }
 
-double Calculator::popNumbers()
+LongDouble Calculator::popNumbers()
 {
-    double temp = -1;
+    LongDouble temp;
     temp = numbers.top();
     numbers.pop();
 
@@ -137,14 +133,9 @@ QString& Calculator::calcValue(){
     return m_calcValue;
 }
 
-double Calculator::result()
+QString Calculator::result()
 {
     return this->m_result;
-}
-
-int Calculator::resultLength()
-{
-    return m_resultLength;
 }
 
 void Calculator::numberPressed(const int number){
@@ -156,12 +147,12 @@ void Calculator::numberPressed(const int number){
     bracketLast = false;
 
     if(dot){
-        double tmp = (double)number * demicalPosition;
-        numberBuffer += tmp;
+        LongDouble tmp = LongDouble(std::to_string(number)) * LongDouble(std::to_string(demicalPosition));
+        numberBuffer = numberBuffer + tmp;
         demicalPosition *= 0.1;
     } else {
-        numberBuffer *= 10;
-        numberBuffer += number;
+        numberBuffer = numberBuffer * LongDouble(std::to_string(10));
+        numberBuffer = numberBuffer + LongDouble(std::to_string(number));
     }
 
 
@@ -176,7 +167,7 @@ void Calculator::changeSignPressed()
     qDebug() << !bracketLast;
     if(!bracketLast){
         int bufferLength = this->bufferLength;
-        numberBuffer *= -1;
+        numberBuffer = numberBuffer * LongDouble("-1");
         if(!bufferReaded) readNumberBuffer();
         qDebug() << m_calcValue.left(m_calcValue.length() - bufferLength);
         setCalcValue(m_calcValue.left(m_calcValue.length() - bufferLength) + "(-" + m_calcValue.right(bufferLength) + ')');
@@ -219,11 +210,11 @@ void Calculator::equalsPressed()
     operationLast = true;
     numberLast = false;
     if(!bufferReaded) readNumberBuffer();
-    double result = 0.0;
+    LongDouble result;
     while(operations.size() > 0){
         result = calculate();
     }
-    setResult(result);
+    setResult(result.toString());
     emit resultChanged();
 }
 
@@ -239,7 +230,7 @@ void Calculator::clearPressed()
     clearNumbers();
 
     m_calcValue = "";
-    m_result = 0.0;
+    m_result = LongDouble("0").toString();
 
     emit calcValueChanged();
     emit resultChanged();
@@ -256,7 +247,6 @@ void Calculator::dotPressed()
 
 void Calculator::bracketPressed()
 {
-    qDebug() << "bracketPressed";
     if(bracketLast) return;
 
     bracketLast = true;
@@ -267,7 +257,6 @@ void Calculator::bracketPressed()
         pushOperations(QChar::fromLatin1('('));
         openBracket = false;
         m_calcValue += '(';
-        qDebug() << "OPEN";
     } else {
         while(operations.top() != '('){
             calculate();
@@ -275,22 +264,20 @@ void Calculator::bracketPressed()
         popOperations();
         openBracket = true;
         m_calcValue += ')';
-        qDebug() << "CLOSE";
     }
 
-    if(numbers.size() > 0) qDebug() << "RESULT";
-    if(numbers.size() > 0) qDebug() << numbers.top();
     emit calcValueChanged();
 }
 
 void Calculator::percentPressed()
 {
     readNumberBuffer();
-    setResult(popNumbers() * 0.01);
+    LongDouble percent = popNumbers() * LongDouble("0.01");
+    setResult(percent.toString());
     emit resultChanged();
 }
 
-void Calculator::setResult(const double result)
+void Calculator::setResult(const QString& result)
 {
     this->m_result = result;
 }
