@@ -108,9 +108,9 @@ compiler_rcc_clean:
 	-$(DEL_FILE) release/qrc_qml.cpp
 release/qrc_qml.cpp: ../../qml.qrc \
 		D:/Soft/pacman/mingw64/bin/rcc.exe \
-		../../TextButton.qml \
 		../../ButtonsArea.qml \
-		../../main.qml
+		../../main.qml \
+		../../SecretMenu.qml
 	/D/Soft/pacman/mingw64/bin/rcc.exe -name qml ../../qml.qrc -o release/qrc_qml.cpp
 
 compiler_moc_predefs_make_all: release/moc_predefs.h
@@ -123,6 +123,7 @@ compiler_moc_header_make_all: release/moc_calculator.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) release/moc_calculator.cpp
 release/moc_calculator.cpp: ../../calculator.h \
+		../../longdouble.h \
 		release/moc_predefs.h \
 		D:/Soft/pacman/mingw64/bin/moc.exe
 	/D/Soft/pacman/mingw64/bin/moc.exe $(DEFINES) --include C:/Users/Kurai/Documents/QtCalculator1/build/Desktop_Qt_5_15_13_shared_MinGW_w64_MINGW64_MSYS2-Debug/release/moc_predefs.h -ID:/Soft/pacman/mingw64/share/qt5/mkspecs/win32-g++ -IC:/Users/Kurai/Documents/QtCalculator1 -ID:/Soft/pacman/mingw64/include/QtQuick -ID:/Soft/pacman/mingw64/include/QtGui -ID:/Soft/pacman/mingw64/include/QtQmlModels -ID:/Soft/pacman/mingw64/include/QtQml -ID:/Soft/pacman/mingw64/include/QtNetwork -ID:/Soft/pacman/mingw64/include/QtCore -I. -ID:/Soft/pacman/mingw64/include/c++/14.1.0 -ID:/Soft/pacman/mingw64/include/c++/14.1.0/x86_64-w64-mingw32 -ID:/Soft/pacman/mingw64/include/c++/14.1.0/backward -ID:/Soft/pacman/mingw64/lib/gcc/x86_64-w64-mingw32/14.1.0/include -ID:/Soft/pacman/mingw64/include -ID:/Soft/pacman/mingw64/lib/gcc/x86_64-w64-mingw32/14.1.0/include-fixed ../../calculator.h -o release/moc_calculator.cpp
@@ -143,13 +144,15 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-release/calculator.o: ../../calculator.cpp ../../calculator.h
+release/calculator.o: ../../calculator.cpp ../../calculator.h \
+		../../longdouble.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/calculator.o ../../calculator.cpp
 
 release/longdouble.o: ../../longdouble.cpp ../../longdouble.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/longdouble.o ../../longdouble.cpp
 
-release/main.o: ../../main.cpp ../../calculator.h
+release/main.o: ../../main.cpp ../../calculator.h \
+		../../longdouble.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/main.o ../../main.cpp
 
 release/qrc_qml.o: release/qrc_qml.cpp 

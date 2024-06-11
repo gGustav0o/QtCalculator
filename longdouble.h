@@ -35,6 +35,7 @@ public:
     bool operator<=(const LongDouble& x) const;
     LongDouble operator-(const LongDouble& x) const;
     LongDouble operator/(const LongDouble& x) const;
+    inline LongDouble &operator=(const LongDouble &x);
     void reset();
 };
 

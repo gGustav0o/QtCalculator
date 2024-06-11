@@ -20,6 +20,7 @@ public:
     int resultLength();
 public slots:
 
+    void equalsActivated();
     void numberPressed(const int number);
     void changeSignPressed();
     void operationPressed(const QChar);

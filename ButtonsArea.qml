@@ -3,13 +3,10 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
 
-
 Rectangle {
     id:                  buttonsArea
     anchors.centerIn:    parent
     color:              "#024873"
-
-
 
     Rectangle{
         id:                leftArea
@@ -207,7 +204,7 @@ Rectangle {
             onPressed: calculator.operationPressed('+')
         }
 
-        RoundButton {
+        DelayButton {
             Layout.leftMargin: buttonsArea.height * 0.029
             Layout.preferredHeight: buttonsArea.height * 0.14
             Layout.preferredWidth: buttonsArea.height * 0.14
@@ -217,8 +214,29 @@ Rectangle {
                 anchors.centerIn: parent
                 text: "="
             }
+            delay: 1000
+            onActivated:
+                {
+                    calculator.equalsActivated()
+                    root.hide()
+                    secretMenu.show()
+                    progress = 0.0
+                }
             onPressed: calculator.equalsPressed()
+            background: Rectangle {
+                color: "#B0D1D8"
+                height: buttonsArea.height * 0.14
+                width: buttonsArea.height * 0.14
+                radius: height / 2
+            }
         }
+    }
+
+    SecretMenu {
+        id: secretMenu
+
+
+
     }
 
 }

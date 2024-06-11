@@ -35,9 +35,12 @@ Window {
                 id:               result
                 text:             calculator.result
                 color:            "white"
+                width:            parent.width
                 font.pointSize:   parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
                 anchors.right:    parent.right
                 anchors.bottom:   parent.bottom
+                elide:            Text.ElideMiddle
+                horizontalAlignment: Text.AlignRight
 
             }
 
@@ -45,9 +48,12 @@ Window {
                 id: terms
                 text:              calculator.calcValue
                 color:             "white"
+                width:             parent.width
                 font.pointSize:    parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
                 anchors.bottom:    result.top
                 anchors.right:     parent.right
+                elide:             Text.ElideMiddle
+                horizontalAlignment: Text.AlignRight
             }
 
         }

@@ -327,35 +327,36 @@ QString LongDouble::toString() const
 
         // выводим первые exponent цифр (или все цифры, если экспонента больше) числа чтобы вывести целую часть
         while(i < this->digits.size() && i < e)
-            str += this->digits[i++];
+            str += QString::number(this->digits[i++]);
 
         // если экспонента больше цифр числа, то выводим нули, чтобы дойти до экспоненты
         while (i < e) {
-            str += "0";
+            str += '0';
             i++;
         }
 
         // если цифры ещё остались
         if (i < this->digits.size()) {
-            str += "."; // то выводим точку
+            str += '.'; // то выводим точку
 
             // и выводим оставшиеся цифры как дробную часть
             while(i < this->digits.size())
-                str += this->digits[i++];
+                str += QString::number(this->digits[i++]);
         }
     }
     else { // иначе эспонента отрицательна или нулевая
-        str += "0."; // выводим нулевую целую часть с точкой
+        str += QString::fromStdString("0."); // выводим нулевую целую часть с точкой
 
         // выводим |exponent| нулей (если экспонента нулевая, то не будет ни одного нуля)
         for (long i = 0; i < -this->exponent; i++)
-            str += "0";
+            str += '0';
 
         // выводим все цифры числа
         for (size_t i = 0; i < this->digits.size(); i++)
-            str += this->digits[i];
+            str += QString::number(this->digits[i]);
     }
 
+    return str;
 }
 
 LongDouble LongDouble::operator/(const LongDouble& x) const {
@@ -382,6 +383,14 @@ LongDouble LongDouble::operator/(const LongDouble& x) const {
     }
 
     return res; // возвращаем результат деления
+}
+
+inline LongDouble &LongDouble::operator=(const LongDouble &x)
+{
+    sign = x.sign;
+    digits = x.digits;
+    exponent = x.exponent;
+    return *this;
 }
 
 void LongDouble::reset()
