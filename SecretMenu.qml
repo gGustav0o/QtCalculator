@@ -7,19 +7,22 @@ Window  {
     height:     616
 
     Text {
-        text: "Секретное меню"
-        font.pointSize: parent.width / 20
+        text:              "Секретное меню"
+        font.pointSize:    parent.width / 20
+
         anchors {
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
+            top:                 parent.top
+            horizontalCenter:    parent.horizontalCenter
         }
     }
 
     Button {
-        text: qsTr("Главное окно")
-        width: parent.width / 2
-        height: width / 3
-        anchors.centerIn: parent
+
+        text:                qsTr("Главное окно")
+        width:               parent.width / 2
+        height:              width / 3
+        anchors.centerIn:    parent
+
         onClicked: {
             secretMenu.hide()
             root.show()

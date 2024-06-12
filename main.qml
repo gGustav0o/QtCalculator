@@ -32,28 +32,32 @@ Window {
             color:               "#04BFAD"
 
             Text {
-                id:               result
-                text:             calculator.result
-                color:            "white"
-                width:            parent.width
-                font.pointSize:   parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
-                anchors.right:    parent.right
-                anchors.bottom:   parent.bottom
-                elide:            Text.ElideMiddle
-                horizontalAlignment: Text.AlignRight
+                id:                     result
+                text:                   calculator.result
+                color:                  "white"
+                width:                  parent.width
+                font.pointSize:         parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
+                elide:                  Text.ElideMiddle
+                horizontalAlignment:    Text.AlignRight
+                anchors {
+                    right:     parent.right
+                    bottom:    parent.bottom
+                }
 
             }
 
             Text {
-                id: terms
-                text:              calculator.calcValue
-                color:             "white"
-                width:             parent.width
-                font.pointSize:    parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
-                anchors.bottom:    result.top
-                anchors.right:     parent.right
-                elide:             Text.ElideMiddle
-                horizontalAlignment: Text.AlignRight
+                id:                     terms
+                text:                   calculator.calcValue
+                color:                  "white"
+                width:                  parent.width
+                font.pointSize:         parent.height / 4 * (1 - (calculator.calcValue.length * 7 / parent.width))
+                elide:                  Text.ElideMiddle
+                horizontalAlignment:    Text.AlignRight
+                anchors {
+                    bottom:    result.top
+                    right:     parent.right
+                }
             }
 
         }
@@ -61,12 +65,14 @@ Window {
     }
 
     Rectangle {
-        id: inputArea
-        anchors.top:       outputArea.bottom
-        anchors.bottom:    parent.bottom
-        anchors.left:      parent.left
-        anchors.right:     parent.right
-        color:             "#024873"
+        id:       inputArea
+        color:    "#024873"
+        anchors {
+            top:       outputArea.bottom
+            bottom:    parent.bottom
+            left:      parent.left
+            right:     parent.right
+        }
 
         ButtonsArea{
             width:     parent.width   * 0.93

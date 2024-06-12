@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QDebug>
 #include <stack>
+#include <QTime>
+#include <QQuickView>
 #include "longdouble.h"
 
 using namespace std;
@@ -13,13 +15,13 @@ class Calculator : public QObject
     Q_OBJECT
     Q_PROPERTY(QString calcValue READ calcValue WRITE setCalcValue NOTIFY calcValueChanged FINAL)
     Q_PROPERTY(QString result READ result WRITE setResult NOTIFY resultChanged FINAL)
+    Q_PROPERTY(bool isSecretMenuVisible READ isSecretMenuVisible WRITE setIsSecretMenuVisible NOTIFY isSecretMenuVisibleChanged FINAL)
 public:
     explicit Calculator(QObject *parent = nullptr);
-    QString& calcValue();
-    QString result();
-    int resultLength();
+    QString calcValue() const;
+    QString result() const;
+    bool isSecretMenuVisible() const;
 public slots:
-
     void equalsActivated();
     void numberPressed(const int number);
     void changeSignPressed();
@@ -32,41 +34,54 @@ public slots:
 
     void setResult(const QString&);
     void setCalcValue(const QString&);
-    QString& getCalcValue();
+    void setIsSecretMenuVisible(const bool);
 
 private:
-    stack<LongDouble> numbers;
-    stack<QChar> operations;
-    QString m_result;
-    QString m_calcValue = "";
+    QString m_result       = "";
+    QString m_calcValue    = "";
+
+    QTime time;
+
+    stack<LongDouble>    numbers;
+    stack<QChar>         operations;
+
+    LongDouble numberBuffer;
+    LongDouble demicalPosition;
+
+    bool m_isSecretMenuVisible    = true;
+    bool openBracket              = true;
+    bool operationLast            = true;
+
+    bool bufferReaded             = false;
+    bool numberLast               = false;
+    bool bracketLast              = false;
+    bool secretMenuActivated      = false;
+    bool dot                      = false;
+
+    int    bufferLength       = 0;
+
+    QChar      popOperations();
+    LongDouble popNumbers();
+
+    LongDouble calculate();
+
+    void pushOperations(const QChar);
+    void pushNumbers(const LongDouble);
+
     void clearNumbers();
     void clearOperations();
-
-    bool bufferReaded = false;
-    bool openBracket = true;
-    bool operationLast = true;
-    bool numberLast = false;
-    bool bracketLast = false;
-    int bufferLength = 0;
-
-    int getOperationPriority(QChar);
-    LongDouble calculate();
-    int getOperationsSize();
-    int getNumbersSize();
     void clearDemicalPosition();
-    bool dot = false;
-    double demicalPosition = 0.1;
-    LongDouble numberBuffer;
     void readNumberBuffer();
-    void pushNumbers(const LongDouble);
-    LongDouble popNumbers();
-    void pushOperations(const QChar);
-    QChar popOperations();
+
+    int getOperationPriority(QChar) const;
+    int getOperationsSize()         const;
+    int getNumbersSize()            const;
 
 signals:
     void calcValueChanged();
     void resultChanged();
     void resultLengthChanged();
+    void isSecretMenuVisibleChanged();
 };
 
 
