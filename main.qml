@@ -10,6 +10,8 @@ Window {
     visible:    true
     title:      qsTr("Calculator")
     color:      "#024873"
+    minimumHeight: 200
+    minimumWidth:  360
 
 
     Calculator{
